@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        opacity: 100px;
+    }
+    .player1,.player2{
+        width: 600px;
+        height: 450px;
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr;
+        /* background-color: black; */
+        box-shadow: 1px 1px 4px black;
+        margin-right: 20px;
+            
+    }
+   
+    .container{
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        position: relative;
+        /* cursor: not-allowed; */
+       
+    }
+    h1{
+        margin-left: 250px;
+    }
+    #p1,#p2{
+        color: red;
+    }
+    /* #start{
+       margin-top: 20px;
+        margin-left: 650px;
+        width: 200px;
+        height: 50px;
+        background-color: green;
+        color: white;
+        font-size: 25px;
+        cursor:pointer;
+    } */
+    .but{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        
+    }
+    .but button{
+        width: 200px;
+        height: 50px;
+        margin-left: 145px;
+        background-color: crimson;
+        color: white;
+        font-size: 25px;
+        cursor:pointer;
+    }
+</style>
+<body>
+    <div class="container" >
+    <div class="player1" id="pt1">
+       <center> <img id="icon1" onclick="change1()" src="image_1.png" alt="out" style="width: 150px;height: 300px;margin-top: 20px;"></center>
+       <center> <img id="icon2" onclick="change2()" src="image_1.png" alt="" style="width: 150px;height: 300px;margin-top: 20px;"></center><br>
+       <h1 id="p1">player1</h1>
+       
+    </div>
+    
+    <div class="player2" id="pt2">
+       <center> <img id="icon3" onclick="change3()" src="image_1.png" alt="" style="width: 150px;height: 300px;margin-top: 20px;"></center>
+       <center> <img id="icon4" onclick="change4()" src="image_1.png" alt="" style="width: 150px;height: 300px;margin-top: 20px;"></center><br>
+       <h1 id="p2">player2</h1>
+       
+    </div>
+    </div>
+    <div class="but">
+    <button onclick="swapl()">swap</button>
+    <div id="buttonContainer"></div>
+    <button onclick="swapr()">swap</button>
+</div>
+    <!-- <button id="start" onclick="star()">start</button> -->
+</body>
+<script>
+    var nol1=1;
+    var nol2=1;
+    var nor1=1;
+    var nor2=1;
+    var clickl=-1;
+    var clickr=-1;
+    var changel=1;
+    var changer=1;
+
+    var container = document.getElementById("buttonContainer");
+   
+   var index='a';
+    function swapl(){
+        container.innerHTML = ""
+        var a=nol1;
+        var b=nol2;
+        index='l';
+        var sum = a+b;
+        for(var i=0; i<=4; i++) {
+            for(var j=i; j<=4; j++) {
+                if(i==a && j==b) {
+                    continue;
+                }
+                if(i+j == sum) {
+                    var button=createButton(i,j);
+                   container.appendChild(button);
+                }
+            }
+        }
+    }
+    function swapr(){
+        container.innerHTML = ""
+        var a=nor1;
+        var b=nor2;
+        index='r';
+        var sum = a+b;
+        for(var i=0; i<=4; i++) {
+            for(var j=i; j<=4; j++) {
+                if(i==a && j==b) {
+                    continue;
+                }
+                if(i+j == sum) {
+                    var button=createButton(i,j);
+                   container.appendChild(button);
+                }
+            }
+        }
+    }
+    function createButton(i,j) {
+            var button = document.createElement("button");
+            button.type = "button";
+            button.name =   i+":"+j;
+            button.innerHTML = "Button " + i+":"+j;
+            button.addEventListener("click", function() {
+                handleButtonClick(event,i,j);});
+            return button;
+        }
+
+    function handleButtonClick(event,i,j){
+        container.innerHTML = ""
+        var button = event.target;
+        if(index=='l')
+        {
+            switch(i){
+                case 1:
+                    icon1.style.visibility="visible";
+                    icon1.src="image_1.png";
+                    break;
+                case 2:
+                    icon1.style.visibility="visible";
+                    icon1.src="imgae_2.png";
+                    break;
+                case 3:
+                    icon1.style.visibility="visible";
+                    icon1.src="image_3.png";
+                    break;
+                case 4:
+                    icon1.style.visibility="visible";
+                    icon1.src="image_4.png";
+                    break;
+                case 0:
+                    icon1.style.visibility="hidden";
+                    break;
+            }
+            switch(j){
+                case 1:
+                    icon2.style.visibility="visible";
+                    icon2.src="image_1.png";
+                    break;
+                case 2:
+                     icon2.style.visibility="visible";
+                    icon2.src="imgae_2.png";
+                    break;
+                case 3:
+                     icon2.style.visibility="visible";
+                    icon2.src="image_3.png";
+                    break;
+                case 4:
+                     icon2.style.visibility="visible";
+                    icon2.src="image_4.png";
+                    break;
+                case 0:
+                icon2.style.visibility="hidden";
+                    break;
+            }
+            clickl=-1;
+            changer=1;
+            changel=0;
+            document.getElementById("pt1").style.boxShadow = "none";
+            document.getElementById("pt2").style.boxShadow = "1px 1px 4px black";
+
+            document.getElementById("p2").style.color="red";
+            document.getElementById("p1").style.color="black";
+        }
+        // console.log(nol2);
+        if(index=='r')
+        {
+            switch(i){
+                case 1:
+                     icon3.style.visibility="visible";
+                    icon3.src="image_1.png";
+                    break;
+                case 2:
+                    icon3.style.visibility="visible";
+                    icon3.src="imgae_2.png";
+                    break;
+                case 3:
+                    icon3.style.visibility="visible";
+                    icon3.src="image_3.png";
+                    break;
+                case 4:
+                    icon3.style.visibility="visible";
+                    icon3.src="image_4.png";
+                    break;
+                case 0:
+                    icon3.style.visibility="hidden";
+                
+                    break;
+            }
+            switch(j){
+                case 1:
+                    icon4.style.visibility="visible";
+                    icon4.src="image_1.png";
+                    break;
+                case 2:icon4.style.visibility="visible";
+                    icon4.src="imgae_2.png";
+                    break;
+                case 3:
+                    icon4.style.visibility="visible";
+                    icon4.src="image_3.png";
+                    break;
+                case 4:
+                    icon4.style.visibility="visible";
+                    icon4.src="image_4.png";
+                    break;
+                case 0:
+                    icon4.style.visibility="hidden";
+                
+                    break;
+            }
+             document.getElementById("pt2").style.boxShadow = "none";
+            document.getElementById("pt1").style.boxShadow = "1px 1px 4px black";
+
+            document.getElementById("p1").style.color="red";
+            document.getElementById("p2").style.color="black";
+            clickr=-1;
+            changel=1;
+            changer=0;
+        }
+    }
+    // function star(){
+    //     document.getElementById("start").style.display="none";
+    //     document.getElementById("p2").style.color="black";
+        
+    // }
+    // console.log(2%5);
+    function change1(){
+        
+        if(clickr==-1 && changel==1)
+        {
+            clickl=nol1;
+            console.log(clickl);
+            document.getElementById("icon1").style.filter = "drop-shadow(16px 16px 10px grey)"; 
+           
+             document.getElementById("pt2").style.boxShadow = "none";
+             document.getElementById("p2").style.color="black";
+           
+            
+            document.getElementById("icon2").style.filter = "none"; 
+            document.getElementById("icon3").style.filter = "none"; 
+            document.getElementById("icon4").style.filter = "none"; 
+        }
+        else if(clickl==-1 && clickr>0)
+        {
+
+            nol1=(nol1+clickr)%5;
+            console.log("added");
+             console.log(nol1+"-->"+nol2);
+            document.getElementById("pt2").style.boxShadow = "none";
+            document.getElementById("pt1").style.boxShadow = "1px 1px 4px black";
+
+            document.getElementById("p1").style.color="red";
+            document.getElementById("p2").style.color="black";
+            clickr=-1;
+            changel=1;
+            changer=0;
+            document.getElementById("icon1").style.filter = "none"; 
+            document.getElementById("icon3").style.filter = "none"; 
+            document.getElementById("icon4").style.filter = "none"; 
+            document.getElementById("icon2").style.filter = "none"; 
+            switch(nol1){
+                case 1:
+                    icon1.src="image_1.png";
+                    break;
+                case 2:
+                    icon1.src="imgae_2.png";
+                    break;
+                case 3:
+                    icon1.src="image_3.png";
+                    break;
+                case 4:
+                    icon1.src="image_4.png";
+                    break;
+                case 0:
+                    icon1.style.visibility="hidden";
+                    break;
+            }
+           
+            if(nol1==0 && nol2==1)
+            {
+                console.log("Ok");
+                document.getElementById("pt1").style.background="balck";
+            }
+        }
+
+    }
+    function change2(){
+        if(clickr==-1 && changel==1)
+        {
+            clickl=nol2;
+            console.log(clickl);
+            document.getElementById("icon2").style.filter = "drop-shadow(16px 16px 10px grey)"; 
+            document.getElementById("pt2").style.boxShadow = "none";
+             document.getElementById("p2").style.color="black";
+            document.getElementById("icon1").style.filter = "none"; 
+            document.getElementById("icon3").style.filter = "none"; 
+            document.getElementById("icon4").style.filter = "none"; 
+        }
+        else if(clickl==-1 && clickr>0)
+        {
+
+            nol2=(nol2+clickr)%5;
+
+            document.getElementById("pt2").style.boxShadow = "none";
+            document.getElementById("pt1").style.boxShadow = "1px 1px 4px black";
+
+            document.getElementById("p1").style.color="red";
+            document.getElementById("p2").style.color="black";
+            clickr=-1;
+            changel=1;
+            changer=0;
+           
+            document.getElementById("icon1").style.filter = "none"; 
+            document.getElementById("icon3").style.filter = "none"; 
+            document.getElementById("icon4").style.filter = "none"; 
+            document.getElementById("icon2").style.filter = "none"; 
+            switch(nol2){
+                case 1:
+                    icon2.src="image_1.png";
+                    break;
+                case 2:
+                    icon2.src="imgae_2.png";
+                    break;
+                case 3:
+                    icon2.src="image_3.png";
+                    break;
+                case 4:
+                    icon2.src="image_4.png";
+                    break;
+                case 0:
+                icon2.style.visibility="hidden";
+                    break;
+            }
+        }
+    }
+    function change3(){
+        if(clickl==-1 && changer==1)
+        {
+            clickr=nor1;
+            console.log(clickr);
+            document.getElementById("icon3").style.filter = "drop-shadow(16px 16px 10px grey)";  
+            document.getElementById("icon1").style.filter = "none"; 
+            document.getElementById("icon2").style.filter = "none"; 
+            document.getElementById("icon4").style.filter = "none"; 
+        }
+        else if(clickr==-1 && clickl>0)
+        {
+
+            nor1=(nor1+clickl)%5;
+            clickl=-1;
+            changer=1;
+            changel=0;
+            document.getElementById("pt1").style.boxShadow = "none";
+            document.getElementById("pt2").style.boxShadow = "1px 1px 4px black";
+
+            document.getElementById("p2").style.color="red";
+            document.getElementById("p1").style.color="black";
+            // document.getElementById("pt1").style.boxShadow = "none";
+            // document.getElementById("pt2").style.boxShadow = "1px 1px 4px black";
+
+
+            document.getElementById("icon1").style.filter = "none"; 
+            document.getElementById("icon3").style.filter = "none"; 
+            document.getElementById("icon4").style.filter = "none"; 
+            document.getElementById("icon2").style.filter = "none"; 
+            switch(nor1){
+                case 1:
+                    icon3.src="image_1.png";
+                    break;
+                case 2:
+                    icon3.src="imgae_2.png";
+                    break;
+                case 3:
+                    icon3.src="image_3.png";
+                    break;
+                case 4:
+                    icon3.src="image_4.png";
+                    break;
+                case 0:
+                icon3.style.visibility="hidden";
+                    break;
+            }
+        }
+    }
+    function change4(){
+        if(clickl==-1 && changer==1)
+        {
+            clickr=nor2;
+            console.log(clickr);
+            document.getElementById("icon4").style.filter = "drop-shadow(16px 16px 10px grey)"; 
+            document.getElementById("icon1").style.filter = "none"; 
+            document.getElementById("icon3").style.filter = "none"; 
+            document.getElementById("icon2").style.filter = "none"; 
+        }
+        else if(clickr==-1 && clickl>0)
+        {
+
+            nor2=(nor2+clickl)%5;
+            clickl=-1;
+            changer=1;
+            changel=0;
+            document.getElementById("pt1").style.boxShadow = "none";
+            document.getElementById("pt2").style.boxShadow = "1px 1px 4px black";
+
+            document.getElementById("p2").style.color="red";
+            document.getElementById("p1").style.color="black";
+
+
+            document.getElementById("icon1").style.filter = "none"; 
+            document.getElementById("icon3").style.filter = "none"; 
+            document.getElementById("icon4").style.filter = "none"; 
+            document.getElementById("icon2").style.filter = "none"; 
+            switch(nor2){
+                case 1:
+                    icon4.src="image_1.png";
+                    break;
+                case 2:
+                    icon4.src="imgae_2.png";
+                    break;
+                case 3:
+                    icon4.src="image_3.png";
+                    break;
+                case 4:
+                    icon4.src="image_4.png";
+                    break;
+                case 0:
+                icon4.style.visibility="hidden";
+                    break;
+            }
+        }
+
+    }
+</script>
+</html>
